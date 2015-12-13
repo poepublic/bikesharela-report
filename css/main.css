@@ -20,7 +20,6 @@ h2 {
     font-size: 1.5em;
     color:#336e94;
     text-transform: uppercase;
-    margin-bottom: -10px;
 }
 
 h1 {
@@ -28,7 +27,7 @@ h1 {
     font-size: 3.5em;
     color:#336e94;
     line-height: 0.7;
-    padding-bottom: 40px;
+    padding-bottom: 30px;
 }
 
 #cardbox{

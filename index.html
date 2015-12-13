@@ -53,16 +53,6 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="about.html">About</a></li>
             <li><a href="summary.html">Summary</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Districts <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#" class="category-btn">Culture</a></li>
-                <li><a href="#" class="category-btn">Health</a></li>
-                <li><a href="#" class="category-btn">Parks</a></li>
-                <li><a href="#" class="category-btn">Safety</a></li>
-                <li><a href="#" class="category-btn">Streets</a></li>
-              </ul>
-            </li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -74,17 +64,20 @@
 
   <!--District 1-5 buttons-->
     <div class="btn-group" role="group" aria-label="...">
-      <button type="button" class="btn btn-default">Culture</button>
-      <button type="button" class="btn btn-default">Health</button>
-      <button type="button" class="btn btn-default">Parks</button>
-      <button type="button" class="btn btn-default">Safety</button>
-      <button type="button" class="btn btn-default">Streets</button>
+      <button type="button" class="btn btn-default category-btn">Culture</button>
+      <button type="button" class="btn btn-default category-btn">Health</button>
+      <button type="button" class="btn btn-default category-btn">Parks</button>
+      <button type="button" class="btn btn-default category-btn">Safety</button>
+      <button type="button" class="btn btn-default category-btn">Streets</button>
     </div>
   </div>
 
   <!--Place Cards-->
   <script type="text/x-handlebars-template" id="cardbox-tpl">
-    {{#each features}}
+    {{#each (groupBy features 'properties.location_type')}} 
+      <h2>{{@key}}</h2>
+
+      <div class="row">{{#each .}}
       <div class="col-lg-3 cards">
         <div class="category">
           <h3> DISTRICT {{properties.DISTRICT}}</h3>
@@ -103,11 +96,13 @@
           <span>{{properties.private-email}}</span>
         </div>
       </div>
+      {{/each}}
+      </div>
     {{/each}}
-
+    
   </script>
 
-  <div id="cardbox" class="row">
+  <div id="cardbox">
   </div >
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
