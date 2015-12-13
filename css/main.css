@@ -15,7 +15,7 @@
 	margin-top: 50px;
 }
 
-h3 {
+h2 {
     font-family: "brandon-grotesque";
     font-size: 1.5em;
     color:#336e94;
@@ -37,7 +37,7 @@ h1 {
 
 .cards {
     background-color: #fff;
-    height:600px;
+    height:700px;
     border-right: 5px solid #fff;
 }
 
@@ -47,6 +47,19 @@ h1 {
     margin-top: 10px;
 }
 
+.card-info {
+    font-style: italic;
+}
+
+h3 {
+    font-family: "brandon-grotesque";
+    height:30px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    color:#336e94;
+    background-color:#e6eef2;
+    padding: 5px 0px 0px 15px;
+}
 h4 {
     font-family: "brandon-grotesque";
     font-size: 1.5em;

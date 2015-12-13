@@ -69,7 +69,7 @@
   </nav>
 
   <div class="filter">
-    <h3>City of Greensboro</h3>
+    <h2>City of Greensboro</h2>
     <h1>Participatory Budgeting Final Report</h1>
 
   <!--District 1-5 buttons-->
@@ -82,24 +82,25 @@
     </div>
   </div>
 
-  <!--Places Cards-->
-  
+  <!--Place Cards-->
   <script type="text/x-handlebars-template" id="cardbox-tpl">
     {{#each features}}
       <div class="col-lg-3 cards">
+        <div class="category">
+          <h3> DISTRICT {{properties.DISTRICT}}</h3>
+        </div>
         <div class="card-map">
-          <img src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/pin-m-star+88c(-79.787725,36.066291)/-79.787725,36.066291,17/300x300@2x.png">
+          <img src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/pin-m-star+88c({{ geometry.coordinates.[0] }},{{ geometry.coordinates.[1] }})/{{ geometry.coordinates.[0] }},{{ geometry.coordinates.[1] }},17/300x300@2x.png">
           </div>
         <div class="card-text">
-            <h4>More public art downtown on a human scale</h4>
-            <h5>South Greene St</h5>
-            <p>Would make downtown more aesthetically pleasing!</p>
-            <p>0 comments</p>
+            <h4>{{properties.name}}</h4>
+            <h5>{{properties.location.street}}</h5>
+            <p>"{{properties.description}}"</p>
+            <p>{{properties.submission_sets.comments.length}} comments</p>
         </div>
         <div class="card-info">
-            <span> 36.0765, -79.433</span>
-            <span>email:gegreere</span>
-            <span>created by: Erika</span>
+          <span>{{properties.submitter_name}}</span>
+          <span>{{properties.private-email}}</span>
         </div>
       </div>
     {{/each}}
