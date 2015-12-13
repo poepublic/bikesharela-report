@@ -56,11 +56,11 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Districts <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">District 1</a></li>
-                <li><a href="#">District 2</a></li>
-                <li><a href="#">District 3</a></li>
-                <li><a href="#">District 4</a></li>
-                <li><a href="#">District 5</a></li>
+                <li><a href="#" class="category-btn">Culture</a></li>
+                <li><a href="#" class="category-btn">Health</a></li>
+                <li><a href="#" class="category-btn">Parks</a></li>
+                <li><a href="#" class="category-btn">Safety</a></li>
+                <li><a href="#" class="category-btn">Streets</a></li>
               </ul>
             </li>
           </ul>
@@ -72,14 +72,42 @@
     <h3>City of Greensboro</h3>
     <h1>Participatory Budgeting Final Report</h1>
 
+  <!--District 1-5 buttons-->
     <div class="btn-group" role="group" aria-label="...">
-      <button type="button" class="btn btn-default">District 1</button>
-      <button type="button" class="btn btn-default">District 2</button>
-      <button type="button" class="btn btn-default">District 3</button>
-      <button type="button" class="btn btn-default">District 4</button>
-      <button type="button" class="btn btn-default">District 5</button>
+      <button type="button" class="btn btn-default">Culture</button>
+      <button type="button" class="btn btn-default">Health</button>
+      <button type="button" class="btn btn-default">Parks</button>
+      <button type="button" class="btn btn-default">Safety</button>
+      <button type="button" class="btn btn-default">Streets</button>
     </div>
   </div>
+
+  <!--Places Cards-->
+  
+  <script type="text/x-handlebars-template" id="cardbox-tpl">
+    {{#each features}}
+      <div class="col-lg-3 cards">
+        <div class="card-map">
+          <img src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/pin-m-star+88c(-79.787725,36.066291)/-79.787725,36.066291,17/300x300@2x.png">
+          </div>
+        <div class="card-text">
+            <h4>More public art downtown on a human scale</h4>
+            <h5>South Greene St</h5>
+            <p>Would make downtown more aesthetically pleasing!</p>
+            <p>0 comments</p>
+        </div>
+        <div class="card-info">
+            <span> 36.0765, -79.433</span>
+            <span>email:gegreere</span>
+            <span>created by: Erika</span>
+        </div>
+      </div>
+    {{/each}}
+
+  </script>
+
+  <div id="cardbox" class="row">
+  </div >
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -87,6 +115,24 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!--Handlebars and Swag-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <script src="https://raw.githubusercontent.com/elving/swag/v0.7.0/lib/swag.js"></script>
+    <script type="text/javascript">Swag.registerHelpers(Handlebars);</script>
 
+    <!--PB Greensboro Data Script-->
+    <script>
+      $.ajax({
+        url: 'private-data/151213_PBGreensboro_places.json',
+        success: function(data) {
+          var templateString = $('#cardbox-tpl').html();
+
+          var template = Handlebars.compile(templateString); 
+
+          $('#cardbox').html(
+            template(data));
+        }
+      });
+    </script>
   </body>
 </html>

@@ -30,3 +30,43 @@ h1 {
     line-height: 0.7;
     padding-bottom: 40px;
 }
+
+#cardbox{
+    margin: 75px 50px 0px 50px; 
+}
+
+.cards {
+    background-color: #fff;
+    height:600px;
+    border-right: 5px solid #fff;
+}
+
+.card-map img{
+    max-width: 100%;
+    border: 1px solid #fff;
+    margin-top: 10px;
+}
+
+h4 {
+    font-family: "brandon-grotesque";
+    font-size: 1.5em;
+    color:#336e94;
+}
+
+h5 {
+    font-family: "brandon-grotesque";
+    font-size: 1.3em;
+    color:#000;
+    padding-bottom: 10px;
+}
+
+p {
+    font-family: "brandon-grotesque";
+    font-size: 1.1em;
+    color:#000;
+}
+
+.card-info span{
+    font-size: 0.9em;
+    display:block;
+}
