@@ -1,0 +1,32 @@
+/*Navigation*/
+.container-fluid {
+	background-color: #e6eef2;
+	text-transform: uppercase;
+	font-family: "brandon-grotesque";
+}
+
+#banner{
+	margin-top: -8px;
+}
+
+/*Filter Top Section*/
+.filter{
+	margin-left: 50px;
+	margin-top: 50px;
+}
+
+h3 {
+    font-family: "brandon-grotesque";
+    font-size: 1.5em;
+    color:#336e94;
+    text-transform: uppercase;
+    margin-bottom: -10px;
+}
+
+h1 {
+    font-family: "brandon-grotesque";
+    font-size: 3.5em;
+    color:#336e94;
+    line-height: 0.7;
+    padding-bottom: 40px;
+}
