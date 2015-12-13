@@ -8,7 +8,7 @@
     <!--Typekit-->
     <script src="https://use.typekit.net/mon5qsx.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
-   
+
     <title>Greensboro Participatory Budgeting Report</title>
 
     <!-- Bootstrap -->
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <!-- Optional theme -->
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -43,7 +43,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">  
+          <a class="navbar-brand" href="#">
             <img alt="Brand" id="banner" src="../images/pbgreensboro-logobanner.png">
           </a>
         </div>
@@ -118,8 +118,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <!--Handlebars and Swag-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
     <script src="https://raw.githubusercontent.com/elving/swag/v0.7.0/lib/swag.js"></script>
     <script type="text/javascript">Swag.registerHelpers(Handlebars);</script>
+    <script src="js/handlebars-helpers.js"></script>
 
     <!--PB Greensboro Data Script-->
     <script>
@@ -128,7 +130,7 @@
         success: function(data) {
           var templateString = $('#cardbox-tpl').html();
 
-          var template = Handlebars.compile(templateString); 
+          var template = Handlebars.compile(templateString);
 
           $('#cardbox').html(
             template(data));
