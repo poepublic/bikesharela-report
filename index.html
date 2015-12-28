@@ -6,20 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <!--Typekit-->
-    <script src="https://use.typekit.net/mon5qsx.js"></script>
+    <script src="https://use.typekit.net/qfg7vgr.js"></script>
     <script>try{Typekit.load({ async: true });}catch(e){}</script>
 
-    <title>Greensboro Participatory Budgeting Report</title>
+    <title>Shareabouts Report</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,104 +26,145 @@
 
   </head>
   <body>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">
-            <img alt="Brand" id="banner" src="../images/pbgreensboro-logobanner.png">
-          </a>
+
+  <!--Report template-->
+  <script type="text/x-handlebars-template" id="report-tpl">
+    <header class="row">
+      <div class="col-md-4">
+        <h1>Bikeshare LA <img src="images/circle-check.svg"></h1>
+        <p>LADOT and Metro are soliciting public feedback to launch a public bikeshare in Los Angeles, California. The Metro Bikeshare Pilot in Downtown LA will launch in Summer 2016 with up to 80 stations and 1,000 bikes.</p>
+      </div>
+
+      <div class="col-md-8">
+        <div class="date-range pull-right">
+          Week of
+          {{config.la_start_date}}
+          &ndash;
+          {{config.la_end_date}}
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="about.html">About</a></li>
-            <li><a href="summary.html">Summary</a></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-  </nav>
+        <div class="row summary">
+          <div class="col-md-4">
+          {{#with (size (filter @root.submissions (lt 'created_datetime' @root.config.la_end_date))) as |this_week_total|}}
+          {{#with (size (filter @root.submissions (lt 'created_datetime' @root.config.la_start_date))) as |last_week_total|}}
+            <span class="stat-value">{{difference this_week_total last_week_total}}</span>
+            <span class="stat-description">more <strong>total surveys</strong> completed this week.</span>
+          {{/with}}
+          {{/with}}
+          </div>
 
-  <div class="filter">
-    <h2>City of Greensboro</h2>
-    <h1>Participatory Budgeting Final Report</h1>
+          <div class="col-md-4">
+          {{#with (size (filter @root.submissions (btw 'created_datetime' @root.config.la_start_date @root.config.la_end_date true false))) as |this_week_count|}}
+          {{#with (size (filter @root.submissions (btw 'created_datetime' @root.config.la_last_week_date @root.config.la_start_date true false))) as |last_week_count|}}
+            <span class="stat-value">{{perc (quotient (difference this_week_count last_week_count) last_week_count) 0}}</span>
+            <span class="stat-description">increase in <strong>completed surveys</strong> over last week.</span>
+          {{/with}}
+          {{/with}}
+          </div>
 
-  <!--District 1-5 buttons-->
-    <div class="btn-group" role="group" aria-label="...">
-      <button type="button" class="btn btn-default category-btn">Culture</button>
-      <button type="button" class="btn btn-default category-btn">Health</button>
-      <button type="button" class="btn btn-default category-btn">Parks</button>
-      <button type="button" class="btn btn-default category-btn">Safety</button>
-      <button type="button" class="btn btn-default category-btn">Streets</button>
+          <div class="col-md-4">
+            <span class="stat-value">{{perc (quotient (size (filter places.features (lt 'properties.submission_sets.surveys.length' 10))) (size places.features))}}</span>
+            <span class="stat-description">of sites have <strong>fewer than 10 surveys</strong> completed.</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="cumulative">
+      <h2>Cumulative Summary</h2>
+      <div id="chart-wrapper">
+    </section>
+
+    <section class="weekly">
+      <h2>This Week&apos;s Activity</h2>
+
+      <div class="row stats-row">
+        <div class="col-md-4">
+          <div class="stats-wrapper">
+            <div class="stat big-stat">
+              <span class="stat-label"># of Surveys Completed:</span>
+              <span class="stat-value">{{size submissions}}</span>
+            </div>
+
+            <div class="stat big-stat">
+              <span class="stat-label"># of Unique Participants (approx):</span>
+              <span class="stat-value">{{size (uniq (pluck submissions 'user_token'))}}</span>
+            </div>
+
+            <div class="stat">
+              <span class="stat-label">Sites with most responses:</span>
+              {{#each (slice (reverse (sortBy (reject places.features (isnt 'properties.submission_sets.surveys.length')) 'properties.submission_sets.surveys.length')) 0 5)}}
+              <div>{{properties.location_name}} ({{properties.submission_sets.surveys.length}})</div>
+              {{/each}}
+            </div>
+
+            <div class="stat">
+              <span class="stat-label">Sites with 3 or fewer responses:</span>
+              {{#each (filter places.features (lte 'properties.submission_sets.surveys.length' 3))}}
+              <div>{{properties.location_name}}</div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div id="map"></div>
+        </div>
+      </div>
+    </section>
+  </script>
+
+  <div class="container">
+    <div class="report-week-chooser">
+      Week ending
+      <select id="report-choice">
+        <option value="config.20151225.json">December 25</option>
+        <option value="config.20151218.json">December 18</option>
+      </select>
+    </div>
+
+    <div id="report"></div>
+
+    <div class="bfooter">
+      Powered by <span class="brand shareabouts-brand">Shareabouts</span> built by <span class="brand poepublic-brand">PoePublic</span>
     </div>
   </div>
 
-  <!--Place Cards-->
-  <script type="text/x-handlebars-template" id="cardbox-tpl">
-    {{#each (groupBy features 'properties.location_type')}} 
-      <h2>{{@key}}</h2>
-
-      <div class="row">{{#each .}}
-      <div class="col-lg-3 cards">
-        <div class="category">
-          <h3> DISTRICT {{properties.DISTRICT}}</h3>
-        </div>
-        <div class="card-map">
-          <img src="http://api.tiles.mapbox.com/v3/openplans.map-dmar86ym/pin-m-star+88c({{ geometry.coordinates.[0] }},{{ geometry.coordinates.[1] }})/{{ geometry.coordinates.[0] }},{{ geometry.coordinates.[1] }},17/300x300@2x.png">
-          </div>
-        <div class="card-text">
-            <h4>{{properties.name}}</h4>
-            <h5>{{properties.location.street}}</h5>
-            <p>"{{properties.description}}"</p>
-            <p>{{properties.submission_sets.comments.length}} comments</p>
-        </div>
-        <div class="card-info">
-          <span>{{properties.submitter_name}}</span>
-          <span>{{properties.private-email}}</span>
-        </div>
-      </div>
-      {{/each}}
-      </div>
-    {{/each}}
-    
-  </script>
-
-  <div id="cardbox">
-  </div >
-
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <!--Handlebars and Swag-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
-    <script src="https://raw.githubusercontent.com/elving/swag/v0.7.0/lib/swag.js"></script>
+    <script src="bower_components/handlebars/handlebars.min.js"></script>
+    <script src="bower_components/lodash/lodash.min.js"></script>
+    <script src="bower_components/swag/lib/swag.js"></script>
     <script type="text/javascript">Swag.registerHelpers(Handlebars);</script>
     <script src="js/handlebars-helpers.js"></script>
 
-    <!--PB Greensboro Data Script-->
+    <!-- Load c3.css -->
+    <link href="bower_components/c3/c3.css" rel="stylesheet" type="text/css">
+
+    <!-- Load d3.js and c3.js -->
+    <script src="bower_components/d3/d3.min.js" charset="utf-8"></script>
+    <script src="bower_components/c3/c3.min.js"></script>
+
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
+    <!--Shareabouts utilities-->
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/shareabouts-js/src/utils.js"></script>
+    <script src="bower_components/shareabouts-js/src/models.js"></script>
+
+    <!--Main Script-->
+    <script src="js/main.js"></script>
     <script>
-      $.ajax({
-        url: 'private-data/151213_PBGreensboro_places.json',
-        success: function(data) {
-          var templateString = $('#cardbox-tpl').html();
-
-          var template = Handlebars.compile(templateString);
-
-          $('#cardbox').html(
-            template(data));
-        }
+      $('#report-choice').on('change', function() {
+        var configFile = $('#report-choice').val()
+        Shareabouts.Reports.fetchConfig(configFile);
       });
+      Shareabouts.Reports.fetchConfig('config.20151225.json');
+      $('*[media="screen"],*[media="print"]').attr('media', '');
     </script>
   </body>
 </html>

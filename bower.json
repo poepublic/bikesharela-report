@@ -1,0 +1,34 @@
+{
+  "name": "shareabouts-report",
+  "homepage": "https://github.com/poepublic/shareabouts-report",
+  "authors": [
+    "Mjumbe Wawatu Ukweli <mjumbewu@gmail.com>"
+  ],
+  "description": "",
+  "main": "index.html",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "shareabouts-js": "https://github.com/openplans/shareabouts.js.git#~3.8.14",
+    "handlebars": "~4.0.5",
+    "swag": "~0.7.0",
+    "lodash": "~3.10.1",
+    "c3": "~0.4.10",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.6",
+    "spin.js": "~2.3.2"
+  },
+  "resolutions": {
+    "handlebars": "~4.0.5"
+  }
+}
