@@ -47,3 +47,5 @@ You need at least one *config.json* file. This file should live in the projet ro
 * **can_use_old** is a flag that specifies whether the report can use existing dataset snapshots
 
 The rest of the entries are pretty specific to the LA Bikeshare reports. They are used to configure the report map and the chart of responses over time.
+
+Near the bottom of the *index.html* file, there is a line that begins `Shareabouts.Reports.fetchConfig`. This function should take a parameter that matches your config file name.
