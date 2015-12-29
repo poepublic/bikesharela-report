@@ -56,14 +56,14 @@
           <div class="col-md-4">
           {{#with (size (filter @root.submissions (btw 'created_datetime' @root.config.la_start_date @root.config.la_end_date true false))) as |this_week_count|}}
           {{#with (size (filter @root.submissions (btw 'created_datetime' @root.config.la_last_week_date @root.config.la_start_date true false))) as |last_week_count|}}
-            <span class="stat-value">{{perc (quotient (difference this_week_count last_week_count) last_week_count) 0}}</span>
+            <span class="stat-value">{{aspercent (quotient (difference this_week_count last_week_count) last_week_count) 0}}</span>
             <span class="stat-description">increase in <strong>completed surveys</strong> over last week.</span>
           {{/with}}
           {{/with}}
           </div>
 
           <div class="col-md-4">
-            <span class="stat-value">{{perc (quotient (size (filter places.features (lt 'properties.submission_sets.surveys.length' 10))) (size places.features))}}</span>
+            <span class="stat-value">{{aspercent (quotient (size (filter places.features (lt 'properties.submission_sets.surveys.length' 10))) (size places.features))}}</span>
             <span class="stat-description">of sites have <strong>fewer than 10 surveys</strong> completed.</span>
           </div>
         </div>

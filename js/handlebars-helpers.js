@@ -165,7 +165,7 @@ _.each(operations, function(op, name) {
   });
 });
 
-Handlebars.registerHelper('perc', function(val, precision) {
+Handlebars.registerHelper('aspercent', function(val, precision) {
   precision = precision || 0;
   return (val*100).toFixed(precision) + '%';
 });
