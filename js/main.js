@@ -157,7 +157,7 @@ Shareabouts.Reports = Shareabouts.Reports || {};
               type: 'area',
               labels: {
                 format: function (v, id, i, j) {
-                  if (i % 7 === 0) { return v; }
+                  if (i % 7 === 6) { return v; }
                 }
               }
             },
