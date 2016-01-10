@@ -1,0 +1,26 @@
+{
+  "name": "shareabouts-js",
+  "version": "3.8.14",
+  "dependencies": {
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.1",
+    "jquery": "~2.1.0",
+    "leaflet-0.7.3": "http://cdn.leafletjs.com/downloads/leaflet-0.7.3.zip",
+    "gatekeeper": "https://github.com/openplans/gatekeeper.git#~0.1.x",
+    "jqxdomainrequest": "https://github.com/MoonScript/jQuery-ajaxTransport-XDomainRequest.git#v1.0.2",
+    "backbone.marionette": "~2.4.2"
+  },
+  "devDependencies": {
+    "sinonjs": "~1.9.x"
+  },
+  "homepage": "https://github.com/openplans/shareabouts.js",
+  "_release": "3.8.14",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.8.14",
+    "commit": "1fed632ead0d27d023fc8d3b5fa0b437a4c19eb1"
+  },
+  "_source": "https://github.com/openplans/shareabouts.js.git",
+  "_target": "~3.8.14",
+  "_originalSource": "https://github.com/openplans/shareabouts.js.git"
+}

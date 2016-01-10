@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gatekeeper Example</title>
+  <link rel="stylesheet" href="example.css">
+  <link rel="stylesheet" href="gatekeeper.css">
+  <!--[if IE]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <form action="" novalidate>
+    <section>
+      <header>Checkbox (checkbox)</header>
+
+      <label for="type-checkbox-a">A</label>
+      <input type="checkbox" name="type-checkbox" value="a" id="type-checkbox-a" required>
+      <label for="type-checkbox-b">B</label>
+      <input type="checkbox" name="type-checkbox" value="b" id="type-checkbox-b" required>
+      <label for="type-checkbox-c">C</label>
+      <input type="checkbox" name="type-checkbox" value="c" id="type-checkbox-c" required>
+    </section>
+
+    <section>
+      <header>Radio (radio)</header>
+
+      <label for="type-radio-a">A</label>
+      <input type="radio" name="type-radio" value="a" id="type-radio-a" required>
+      <label for="type-radio-b">B<l/abel>
+      <input type="radio" name="type-radio" value="b" id="type-radio-b" required>
+      <label for="type-radio-c">C</label>
+      <input type="radio" name="type-radio" value="c" id="type-radio-c" required>
+    </section>
+
+
+    <section>
+      <header>Select (select)</header>
+      <select name="type-select" required>
+        <option value="">Choose one</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </section>
+    <section>
+      <header>Text Area (textarea)</header>
+      <textarea name="type-textarea" required></textarea>
+    </section>
+    <section>
+      <header>Text (text)</header>
+      <input type="text" name="type-text" required>
+    </section>
+    <section>
+      <header>Search (search)</header>
+      <input type="search" name="type-search">
+    </section>
+    <section>
+      <header>Telephone (tel)</header>
+      <input type="tel" name="type-tel">
+    </section>
+    <section>
+      <header>URL (url)</header>
+      <input type="url" name="type-url">
+    </section>
+    <section>
+      <header>Email (email)</header>
+      <input type="email" name="type-email">
+    </section>
+    <section>
+      <header>Date and Time (datetime)</header>
+      <input type="datetime" name="type-datetime">
+    </section>
+    <section>
+      <header>Date (date)</header>
+      <input type="date" name="type-date">
+    </section>
+    <section>
+      <header>Month (month)</header>
+      <input type="month" name="type-month">
+    </section>
+    <section>
+      <header>Week (week)</header>
+      <input type="week" name="type-week">
+    </section>
+    <section>
+      <header>Time (time)</header>
+      <input type="time" name="type-time">
+    </section>
+    <section>
+      <header>Local Date and Time (datetime-local)</header>
+      <input type="datetime-local" name="type-datetime-local">
+    </section>
+    <section>
+      <header>Number (number)</header>
+      <input type="number" name="type-number">
+    </section>
+    <section>
+      <header>Range (range)</header>
+      <input type="range" name="type-range">
+    </section>
+    <section>
+      <header>Color (color)</header>
+      <input type="color" name="type-color">
+    </section>
+    <section>
+      <input type="submit" value="Submit" name="submit">
+    </section>
+  </form>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="gatekeeper.js"></script>
+  <script>
+    $('form').on('submit', Gatekeeper.onValidSubmit(function(evt) {
+      alert('valid!');
+    }, function(evt) {
+      alert('invalid!');
+    }));
+  </script>
+</body>
+</html>

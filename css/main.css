@@ -13,6 +13,84 @@ body {
     width: 100%;
 }
 
+
+.navbar {
+  background-color: #fff;
+  margin-top: -5px;
+  border: none;
+  vertical-align: center;
+}
+
+.nav a {
+  vertical-align: center;
+}
+
+#metro-logo-1{
+  max-height: 35px;
+  vertical-align: center;
+  margin-top: -5px;
+}
+
+.jumbotron {
+  height: 350px;
+  background-image: url("../images/Homepage_Image_2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top:-15px;
+  padding: 0px;
+}
+.nav-box {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nav-btn {
+  font-size: 1.75rem;
+  text-align: center;
+  margin: 8px 0px 8px 0px;
+  border: 1px solid #fff;
+}
+
+.vert-menu {
+  width:33%;
+  height: 100%;
+  padding:10px 20px 10px 30px;
+  color: #fff;
+}
+
+/*start Summary Section*/
+.summary {
+  height:700px;
+  width:90%;
+  margin-left:auto;
+  margin-right: auto;
+  background-color:#eee;
+
+}
+
+.sum-block{
+  display: inline-block;
+  vertical-align: center;
+}
+
+/*end Summary Section*/
+
+/*start Stations Section*/
+.stations {
+  height:900px;
+  width:90%;
+  margin-left:auto;
+  margin-right: auto;
+}
+
+.stations-block{
+  display: inline-block;
+  vertical-align: center;
+  margin-bottom: 50px;
+}
+
+/*end Stations Section*/
+
 #map {
     height: 60rem;
 }
@@ -28,23 +106,26 @@ body {
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 4rem;
+    font-weight:100;
     color:#00274C;
-    text-transform: uppercase;
-    border: 2px solid #00274C;
     display: inline-block;
     padding: 0.25rem 0.5rem;
+    color:#fff;
 }
 
 h1 {
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 600;
     margin-top: 5rem;
+    margin-bottom: -20px;
+    color:#fff;
 }
 
 h1 img {
     height: 4rem;
     vertical-align: baseline;
+    color:#fff;
 }
 
 #cardbox{
@@ -68,13 +149,12 @@ h1 img {
 }
 
 h3 {
-    height:30px;
-    font-size: 1.2em;
+    font-family: "calluna-sans";
+    font-size: 3em;
     text-transform: uppercase;
-    color:#336e94;
-    background-color:#e6eef2;
-    padding: 5px 0px 0px 15px;
+    color:#000;
 }
+
 h4 {
     font-size: 1.5em;
     color:#336e94;
@@ -211,6 +291,7 @@ p {
     font-family: 'Helvetica', sans-serif;
 }
 
+/* start Media Queries*/
 @media print {
     .report-week-chooser {
         display: none;
@@ -379,3 +460,4 @@ p {
     margin-left: 0;
   }
 }
+/*end Media Queries*/

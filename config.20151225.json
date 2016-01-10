@@ -1,0 +1,29 @@
+{
+    "can_use_old": true,
+
+    "title": "Bikeshare LA Report \u2014 Dec 18-25",
+
+    "datasetUrl": "https://shareaboutsapi2.herokuapp.com/api/v2/toole/datasets/bikesharela/",
+
+    "snapshots": {
+        "surveys_id": "2ddda914-4be9-409d-b8ba-c8fd6b46f00a",
+        "places_id": "b43fd5c1-e1d3-45a0-9486-303bd3a4d47d"
+    },
+
+    "cartodb_map": "https://mjumbewu.cartodb.com/api/v2/viz/52828652-ac05-11e5-bab7-0e3ff518bd15/viz.json",
+
+    "la_last_week_date": "2015-12-11",
+    "la_start_date": "2015-12-18",
+    "la_end_date": "2015-12-25",
+
+    "la_week_ends": [
+        "2015-11-13",
+        "2015-11-20",
+        "2015-11-27",
+        "2015-12-04",
+        "2015-12-11",
+        "2015-12-18",
+        "2015-12-25",
+        "2016-01-01"
+    ]
+}

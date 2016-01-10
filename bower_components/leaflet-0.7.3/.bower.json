@@ -1,0 +1,13 @@
+{
+  "name": "leaflet-0.7.3",
+  "_cacheHeaders": {
+    "ETag": "\"41e4d84241f0dea5bdcd32974d88fd9f\"",
+    "Last-Modified": "Tue, 28 Jul 2015 14:45:00 GMT",
+    "Content-Length": "102625",
+    "Content-Type": "application/zip"
+  },
+  "_release": "e-tag:41e4d8424",
+  "_source": "http://cdn.leafletjs.com/downloads/leaflet-0.7.3.zip",
+  "_target": "*",
+  "_originalSource": "http://cdn.leafletjs.com/downloads/leaflet-0.7.3.zip"
+}

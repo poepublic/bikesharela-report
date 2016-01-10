@@ -1,0 +1,14 @@
+{
+  "name": "gatekeeper",
+  "homepage": "https://github.com/openplans/gatekeeper",
+  "version": "0.1.2",
+  "_release": "0.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.2",
+    "commit": "1255718e1b4afb1893893cdac96b175c8128f5bc"
+  },
+  "_source": "https://github.com/openplans/gatekeeper.git",
+  "_target": "~0.1.x",
+  "_originalSource": "https://github.com/openplans/gatekeeper.git"
+}

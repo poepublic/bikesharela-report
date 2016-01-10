@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!--Typekit-->
+    <script src="https://use.typekit.net/qfg7vgr.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <title>Shareabouts Report</title>
+
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!--Custom Styles-->
+    <link href="css/main.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+  <!--Report template-->
+  <script type="text/x-handlebars-template" id="report-tpl">
+    <header class="row">
+      <div class="col-md-4">
+        <h1>Bikeshare LA <img src="images/circle-check.svg"></h1>
+        <p>LADOT and Metro are soliciting public feedback to launch a public bikeshare in Los Angeles, California. The Metro Bikeshare Pilot in Downtown LA will launch in Summer 2016 with up to 80 stations and 1,000 bikes.</p>
+      </div>
+
+      <div class="col-md-8">
+        <div class="date-range pull-right">
+          Week of
+          {{config.la_start_date}}
+          &ndash;
+          {{config.la_end_date}}
+        </div>
+
+        <div class="row summary">
+          <div class="col-md-4">
+          {{#with (size (filter @root.submissions (lt 'created_datetime' @root.config.la_end_date))) as |this_week_total|}}
+          {{#with (size (filter @root.submissions (lt 'created_datetime' @root.config.la_start_date))) as |last_week_total|}}
+            <span class="stat-value">{{difference this_week_total last_week_total}}</span>
+            <span class="stat-description">more <strong>total surveys</strong> completed this week.</span>
+          {{/with}}
+          {{/with}}
+          </div>
+
+          <div class="col-md-4">
+          {{#with (size (filter @root.submissions (btw 'created_datetime' @root.config.la_start_date @root.config.la_end_date true false))) as |this_week_count|}}
+          {{#with (size (filter @root.submissions (btw 'created_datetime' @root.config.la_last_week_date @root.config.la_start_date true false))) as |last_week_count|}}
+            <span class="stat-value">{{aspercent (quotient (difference this_week_count last_week_count) last_week_count) 0}}</span>
+            <span class="stat-description">increase in <strong>completed surveys</strong> over last week.</span>
+          {{/with}}
+          {{/with}}
+          </div>
+
+          <div class="col-md-4">
+            <span class="stat-value">{{aspercent (quotient (size (filter places.features (lt 'properties.submission_sets.surveys.length' 10))) (size places.features))}}</span>
+            <span class="stat-description">of sites have <strong>fewer than 10 surveys</strong> completed.</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="cumulative">
+      <h2>Cumulative Summary</h2>
+      <div id="chart-wrapper">
+    </section>
+
+    <section class="weekly">
+      <h2>This Week&apos;s Activity</h2>
+
+      <div class="row stats-row">
+        <div class="col-md-4">
+          <div class="stats-wrapper">
+            <div class="stat big-stat">
+              <span class="stat-label"># of Surveys Completed:</span>
+              <span class="stat-value">{{size submissions}}</span>
+            </div>
+
+            <div class="stat big-stat">
+              <span class="stat-label"># of Unique Participants (approx):</span>
+              <span class="stat-value">{{size (uniq (pluck submissions 'user_token'))}}</span>
+            </div>
+
+            <div class="stat">
+              <span class="stat-label">Sites with most responses:</span>
+              {{#each (slice (reverse (sortBy (reject places.features (isnt 'properties.submission_sets.surveys.length')) 'properties.submission_sets.surveys.length')) 0 5)}}
+              <div>{{properties.location_name}} ({{properties.submission_sets.surveys.length}})</div>
+              {{/each}}
+            </div>
+
+            <div class="stat">
+              <span class="stat-label">Sites with 3 or fewer responses:</span>
+              {{#each (filter places.features (lte 'properties.submission_sets.surveys.length' 3))}}
+              <div>{{properties.location_name}}</div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div id="map"></div>
+        </div>
+      </div>
+    </section>
+  </script>
+
+  <div class="container">
+    <div class="report-week-chooser">
+      Week ending
+      <select id="report-choice">
+        <option value="config.20151225.json">December 25</option>
+        <option value="config.20151218.json">December 18</option>
+      </select>
+    </div>
+
+    <div id="report"></div>
+
+    <div class="bfooter">
+      Powered by <span class="brand shareabouts-brand">Shareabouts</span> built by <span class="brand poepublic-brand">PoePublic</span>
+    </div>
+  </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!--Handlebars and Swag-->
+    <script src="bower_components/handlebars/handlebars.min.js"></script>
+    <script src="bower_components/lodash/lodash.min.js"></script>
+    <script src="bower_components/swag/lib/swag.js"></script>
+    <script type="text/javascript">Swag.registerHelpers(Handlebars);</script>
+    <script src="js/handlebars-helpers.js"></script>
+
+    <!-- Load c3.css -->
+    <link href="bower_components/c3/c3.css" rel="stylesheet" type="text/css">
+
+    <!-- Load d3.js and c3.js -->
+    <script src="bower_components/d3/d3.min.js" charset="utf-8"></script>
+    <script src="bower_components/c3/c3.min.js"></script>
+
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/3.15/themes/css/cartodb.css" />
+    <script src="http://libs.cartocdn.com/cartodb.js/v3/3.15/cartodb.js"></script>
+
+    <!--Shareabouts utilities-->
+    <script src="bower_components/backbone/backbone.js"></script>
+    <script src="bower_components/shareabouts-js/src/utils.js"></script>
+    <script src="bower_components/shareabouts-js/src/models.js"></script>
+
+    <!--Main Script-->
+    <script src="js/main.js"></script>
+    <script>
+      $('#report-choice').on('change', function() {
+        var configFile = $('#report-choice').val()
+        Shareabouts.Reports.fetchConfig(configFile);
+      });
+      Shareabouts.Reports.fetchConfig('config.20151225.json');
+      $('*[media="screen"],*[media="print"]').attr('media', '');
+    </script>
+  </body>
+</html>
