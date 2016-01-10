@@ -257,24 +257,22 @@ p {
     opacity: 0!important;
 }
 
-.c3-circles .c3-shape[class$="-0"],
-.c3-circles .c3-shape[class$="-7"],
-.c3-circles .c3-shape[class$="-14"],
-.c3-circles .c3-shape[class$="-21"],
-.c3-circles .c3-shape[class$="-28"],
-.c3-circles .c3-shape[class$="-35"],
-.c3-circles .c3-shape[class$="-42"],
-.c3-circles .c3-shape[class$="-49"],
-.c3-circles .c3-shape[class$="-56"],
-.c3-circles .c3-shape[class$="-0 _expanded_"],
-.c3-circles .c3-shape[class$="-7 _expanded_"],
-.c3-circles .c3-shape[class$="-14 _expanded_"],
-.c3-circles .c3-shape[class$="-21 _expanded_"],
-.c3-circles .c3-shape[class$="-28 _expanded_"],
-.c3-circles .c3-shape[class$="-35 _expanded_"],
-.c3-circles .c3-shape[class$="-42 _expanded_"],
-.c3-circles .c3-shape[class$="-49 _expanded_"],
-.c3-circles .c3-shape[class$="-56 _expanded_"] {
+.c3-circles .c3-shape[class$="-6"],
+.c3-circles .c3-shape[class$="-13"],
+.c3-circles .c3-shape[class$="-20"],
+.c3-circles .c3-shape[class$="-27"],
+.c3-circles .c3-shape[class$="-34"],
+.c3-circles .c3-shape[class$="-41"],
+.c3-circles .c3-shape[class$="-48"],
+.c3-circles .c3-shape[class$="-55"],
+.c3-circles .c3-shape[class$="-6 _expanded_"],
+.c3-circles .c3-shape[class$="-13 _expanded_"],
+.c3-circles .c3-shape[class$="-20 _expanded_"],
+.c3-circles .c3-shape[class$="-27 _expanded_"],
+.c3-circles .c3-shape[class$="-34 _expanded_"],
+.c3-circles .c3-shape[class$="-41 _expanded_"],
+.c3-circles .c3-shape[class$="-48 _expanded_"],
+.c3-circles .c3-shape[class$="-55 _expanded_"] {
     opacity: 1!important;
     stroke: none!important;
     fill: black!important;
