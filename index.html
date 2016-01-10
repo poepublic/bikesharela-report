@@ -117,6 +117,7 @@
     <div class="report-week-chooser">
       Week ending
       <select id="report-choice">
+        <option value="config.20160108.json">January 08</option>
         <option value="config.20151225.json">December 25</option>
         <option value="config.20151218.json">December 18</option>
       </select>
@@ -163,7 +164,7 @@
         var configFile = $('#report-choice').val()
         Shareabouts.Reports.fetchConfig(configFile);
       });
-      Shareabouts.Reports.fetchConfig('config.20151225.json');
+      Shareabouts.Reports.fetchConfig('config.20160108.json');
       $('*[media="screen"],*[media="print"]').attr('media', '');
     </script>
   </body>
